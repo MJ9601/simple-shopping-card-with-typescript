@@ -5,27 +5,39 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Grid,
   Rating,
   Typography,
 } from "@mui/material";
-import React from "react";
 import { ProductType } from "../App";
 
 type Props = {
   item: ProductType;
+  addToCard: (item: ProductType) => void;
 };
 
-const ProductCard = ({ item }: Props) => {
+const ProductCard = ({ item, addToCard }: Props) => {
   return (
-    <Card>
+    <Card sx={{ position: "relative" }}>
       <CardMedia
         component={"img"}
         height="200"
         image={item.image}
         alt={item.title}
-        sx={{ objectFit: "cover" }}
+        sx={{ objectFit: "contain" }}
       />
+      <Typography
+        variant="h6"
+        component="div"
+        sx={{
+          position: "absolute",
+          color: "#e33e0b",
+          fontWeight: "bold",
+          top: "10px",
+          left: "10px",
+        }}
+      >
+        ${item.price}
+      </Typography>
       <CardContent>
         <Typography variant="h5" component="h4" sx={{ marginY: "10px" }}>
           {item.title}
@@ -69,7 +81,10 @@ const ProductCard = ({ item }: Props) => {
         </Box>
       </CardContent>
       <CardActions>
-        <Button sx={{ width: "100%", color: "#ef6c00", fontWeight: "bold" }}>
+        <Button
+          sx={{ width: "100%", color: "#ef6c00", fontWeight: "bold" }}
+          onClick={() => addToCard(item)}
+        >
           Add To Card
         </Button>
       </CardActions>
